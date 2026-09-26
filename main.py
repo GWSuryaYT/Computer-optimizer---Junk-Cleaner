@@ -88,18 +88,62 @@ class WinOptimizer:
                     
 
 def main():
+    while True:
+    #intences:
+        obj = WinOptimizer()
 
-    #list of the folders:
-    targeted_dirs = [os.environ.get('temp'), 'C:\\Windows\\Prefetch']
+        ask_user = int(input('''Hey what things you want me to delete?
+Press 1: For deleting Temp, Prefetch, Recent (Recomended);
+Press 2: For deleting Windwos Update caches, crashdumps (Also Recomended);
+Press 3: For deleting DirectX Shader Cache;
+Press 0: For Abort the mission.
+        
+'''))
 
-    #itenences
-    obj = WinOptimizer()
-    sk_files,number,size = obj.cleaner(targeted_dirs)
-    size_mb = size / (1024 * 1024)
-
-    print(f'Skipped Files {len(sk_files)}', '\n')
-    print(f'Total files cleared {number}', '\n')
-    print(f'✅ {size_mb} MB space freed')
+        if ask_user == 1:
+            targeted_dirs = [os.environ.get('temp'), 'C:\\Windows\\Prefetch', "C:\\Users\\surya\\AppData\\Roaming\\Microsoft\\Windows\\Recent"]
+            sk_files,number,size = obj.cleaner(targeted_dirs)
+            size_mb = size / (1024 * 1024)
+            print(f'Skipped Files {len(sk_files)}', '\n')
+            print(f'Total files cleared {number}', '\n')
+            print(f'✅ {size_mb} MB space freed')
+            print('💖Completed Tasks.')
+        elif ask_user == 2:
+            targeted_dirs = ["C:\\Windows\\SoftwareDistribution\\Download", "C:\\Users\\surya\\AppData\\Local\\CrashDumps"]
+            sk_files,number,size = obj.cleaner(targeted_dirs)
+            size_mb = size / (1024 * 1024)
+            print(f'Skipped Files {len(sk_files)}', '\n')
+            print(f'Total files cleared {number}', '\n')
+            print(f'✅ {size_mb} MB space freed')
+            print('💖Completed Tasks.') 
+        elif ask_user == 3:
+            again_ask_user = int(input('''What type of GPU do you use?
+            Press 1: For NVIDIA;
+            Press 2: For AMD;'''))
+            if again_ask_user == 1:
+                targeted_dirs = ['C:\\Users\\surya\\AppData\\Local\\NVIDIA\\DXCache']
+                sk_files,number,size = obj.cleaner(targeted_dirs)
+                size_mb = size / (1024 * 1024)
+                print(f'Skipped Files {len(sk_files)}', '\n')
+                print(f'Total files cleared {number}', '\n')
+                print(f'✅ {size_mb} MB space freed')
+                print('💖Completed Tasks.')
+            
+            elif again_ask_user == 2:
+                targeted_dirs = ['C:\\Users\\surya\\AppData\\Local\\AMD\\DxCache']
+                sk_files,number,size = obj.cleaner(targeted_dirs)
+                size_mb = size / (1024 * 1024)
+                print(f'Skipped Files {len(sk_files)}', '\n')
+                print(f'Total files cleared {number}', '\n')
+                print(f'✅ {size_mb} MB space freed')
+                print('💖Completed Tasks.')
+            else:
+                print('Please press between (1-2)')
+        elif ask_user == 0:
+            print('Aborting mission. 🫡')
+            break
+        else:
+            print('Please press between 0-3')
 
 main()
 
