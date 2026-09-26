@@ -4,6 +4,13 @@ import shutil
 import pathlib
 import sys #used
 import ctypes #used
+import tkinter as tk
+from tkinter import messagebox
+
+
+root = tk.Tk()
+
+root.withdraw()
 
 #remember 0 = false 1 = yes admin
 
@@ -41,6 +48,7 @@ class WinOptimizer:
 
         if not self.admin_check(): #admin checker
             print('🚨No admin access.. System files will be skipped.')
+            messagebox.showinfo("No admin perms", "Please provide some power please 🙏")
 
         for path_dir in path_dir_list:
 
@@ -94,7 +102,7 @@ def main():
 
         ask_user = int(input('''Hey what things you want me to delete?
 Press 1: For deleting Temp, Prefetch, Recent (Recomended);
-Press 2: For deleting Windwos Update caches, crashdumps (Also Recomended);
+Press 2: For deleting Windwos Update caches, crashdumps, logs;
 Press 3: For deleting DirectX Shader Cache;
 Press 0: For Abort the mission.
         
@@ -109,7 +117,7 @@ Press 0: For Abort the mission.
             print(f'✅ {size_mb} MB space freed')
             print('💖Completed Tasks.')
         elif ask_user == 2:
-            targeted_dirs = ["C:\\Windows\\SoftwareDistribution\\Download", "C:\\Users\\surya\\AppData\\Local\\CrashDumps"]
+            targeted_dirs = ["C:\\Windows\\SoftwareDistribution\\Download", "C:\\Users\\surya\\AppData\\Local\\CrashDumps", 'C:\\Windows\\Logs', ]
             sk_files,number,size = obj.cleaner(targeted_dirs)
             size_mb = size / (1024 * 1024)
             print(f'Skipped Files {len(sk_files)}', '\n')
@@ -118,8 +126,11 @@ Press 0: For Abort the mission.
             print('💖Completed Tasks.') 
         elif ask_user == 3:
             again_ask_user = int(input('''What type of GPU do you use?
-            Press 1: For NVIDIA;
-            Press 2: For AMD;'''))
+Press 1: For NVIDIA;
+Press 2: For AMD;
+Press 3: For No GPU (Cpu Graphics)
+
+'''))
             if again_ask_user == 1:
                 targeted_dirs = ['C:\\Users\\surya\\AppData\\Local\\NVIDIA\\DXCache']
                 sk_files,number,size = obj.cleaner(targeted_dirs)
@@ -131,6 +142,14 @@ Press 0: For Abort the mission.
             
             elif again_ask_user == 2:
                 targeted_dirs = ['C:\\Users\\surya\\AppData\\Local\\AMD\\DxCache']
+                sk_files,number,size = obj.cleaner(targeted_dirs)
+                size_mb = size / (1024 * 1024)
+                print(f'Skipped Files {len(sk_files)}', '\n')
+                print(f'Total files cleared {number}', '\n')
+                print(f'✅ {size_mb} MB space freed')
+                print('💖Completed Tasks.')
+            elif again_ask_user == 3:
+                targeted_dirs = ['C:\\Users\\surya\\AppData\\Local\\D3DSCache']
                 sk_files,number,size = obj.cleaner(targeted_dirs)
                 size_mb = size / (1024 * 1024)
                 print(f'Skipped Files {len(sk_files)}', '\n')
